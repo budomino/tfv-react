@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
-import Card from 'material-ui/Card';
+import {CardContent, Card, Typography, CardActions, Button, Toolbar} from '@material-ui/core';
 
 import {cfu_filterStatus} from './Sorter'
 
@@ -35,12 +35,20 @@ function App() {
 			color = "#00B0F0";
 		}
 		return (
-			<div className="Item" style={color ? {backgroundColor: color}  : {} }>
-				<h5>FROM: {specificItem.from}</h5>
-				<h6>{specificItem.description}</h6>
-				<h5>STATUS: {specificItem.itemstatus}</h5>
-				<h5>PRIORITY: {specificItem.priority}</h5>
-			</div>
+		<Card className="Item" style={{backgroundColor: color ? color : "white"}}>
+			<CardContent>
+				<Typography color="textSecondary" variant="caption" gutterBottom style={{fontSize: "7px"}}>
+					FROM: {specificItem.from}
+				</Typography>
+				<Typography variant="body2" style={{fontSize: "13px"}} gutterBottom>
+					{specificItem.description}
+				</Typography>
+				<Typography  color="textSecondary" style={{fontSize: "10px",lineHeight:"100%"}}>
+					STATUS: {specificItem.itemstatus}	<br />
+					PRIORITY: {specificItem.priority}
+				</Typography>
+			</CardContent>
+		</Card>
 		)
 	}
 
@@ -58,7 +66,7 @@ function App() {
 
 	return (
 	<div className="App">
-		Task Feed Visualizer - 10 August 2021 
+		<Toolbar>Task Feed Visualizer - 10 August 2021</Toolbar>
 		<div>
 			<div className="FirstRow">
 

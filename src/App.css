@@ -45,6 +45,16 @@
 
 .Item {
 	align-self: auto;
+	color: black;
+	word-wrap: normal;
+	width:146px;
+	height:146px;
+}
+
+
+
+ItemOther {
+	align-self: auto;
 	color:black;
 	border-radius: 5px;
   	border: 1px solid black;

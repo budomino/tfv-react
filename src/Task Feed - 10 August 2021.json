@@ -4,7 +4,7 @@
 		"from":"[ME]",
 		"project":"Test Project",
 		"description":"Test task item for a practice activity",
-		"itemstatus":"DONE",
+		"itemstatus":"ONGOING",
 		"priority":"NORMAL/MEDIUM"
 	},
 	{
@@ -12,7 +12,7 @@
 		"from":"You",
 		"project":"Test Project Dos",
 		"description":"Second test item",
-		"itemstatus":"DONE",
+		"itemstatus":"ONGOING",
 		"priority":"HIGH"
 	},
 	{
@@ -20,7 +20,7 @@
 		"from":"You",
 		"project":"Test Project Dos",
 		"description":"Second test item",
-		"itemstatus":"DONE",
+		"itemstatus":"ONGOING",
 		"priority":"HIGH"
 	},
 	{
