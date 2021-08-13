@@ -1,0 +1,35 @@
+[
+	{
+		"id":1,
+		"from":"[ME]",
+		"project":"Test Project",
+		"description":"Test task item for a practice activity",
+		"itemstatus":"DONE",
+		"priority":"NORMAL/MEDIUM"
+	},
+	{
+		"id":2,
+		"from":"You",
+		"project":"Test Project Dos",
+		"description":"Second test item",
+		"itemstatus":"DONE",
+		"priority":"HIGH"
+	},
+	{
+		"id":3,
+		"from":"You",
+		"project":"Test Project Dos",
+		"description":"Second test item",
+		"itemstatus":"DONE",
+		"priority":"HIGH"
+	},
+	{
+		"id":4,
+		"from":"You",
+		"project":"Test Project Dos",
+		"description":"Second test item",
+		"itemstatus":"DONE",
+		"priority":"HIGH"
+	}
+
+]

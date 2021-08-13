@@ -1,0 +1,56 @@
+.App {
+	color: #F0F0F0;
+  text-align: center;
+  background-color: black;
+  min-height: 100vh;
+  text-transform:capitalize;
+}
+
+.FirstRow {
+	display:flex;
+	text-align: center;
+	background-color: #F0F0F0;
+	text-transform:uppercase;
+	justify-content: center;
+	column-gap: 2em;
+	position: relative;
+	min-height: 100vh;
+}
+
+.CategoryBox {
+	color: black;
+	width: 300px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	border-collapse:separate;
+	border-spacing:0 5px;
+
+}
+
+.Column {
+	background-color:#F0F0F0;
+	width: 300px;
+}
+
+.SubColumn {
+	display:grid;
+	flex-wrap: wrap;
+	grid-template-columns: 50% 50%;
+	border-collapse:separate;
+	border-spacing:0px;
+}
+
+.Item {
+	align-self: auto;
+	color:black;
+	border-radius: 5px;
+  	border: 1px solid black;
+	word-wrap: break-word;
+	width:146px;
+	height:146px;
+	font-size : 12px
+}
+
