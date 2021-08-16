@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useEffect} from 'react';
-import {CardContent, Card, Typography, CardActions, Button, Toolbar} from '@material-ui/core';
+import {CardContent, Card, Typography, CardActions, Button, Toolbar, Paper } from '@material-ui/core';
+import Grid from "@material-ui/core/Grid";
 
 import {cfu_filterStatus} from './Sorter'
 
@@ -35,39 +36,63 @@ function App() {
 			color = "#00B0F0";
 		}
 		return (
-		<Card className="Item" style={{backgroundColor: color ? color : "white"}}>
-			<CardContent>
-				<Typography color="textSecondary" variant="caption" gutterBottom style={{fontSize: "7px"}}>
-					FROM: {specificItem.from}
-				</Typography>
-				<Typography variant="body2" style={{fontSize: "13px"}} gutterBottom>
-					{specificItem.description}
-				</Typography>
-				<Typography  color="textSecondary" style={{fontSize: "10px",lineHeight:"100%"}}>
-					STATUS: {specificItem.itemstatus}	<br />
-					PRIORITY: {specificItem.priority}
-				</Typography>
-			</CardContent>
-		</Card>
+		<Grid item xs="auto" >
+			<Card className="Item" style={{backgroundColor: color ? color : "white"}}>
+				<CardContent>
+					<Typography color="textSecondary" variant="caption" gutterBottom style={{fontSize: "7px"}}>
+						FROM: {specificItem.from}
+					</Typography>
+					<Typography variant="body2" style={{fontSize: "13px"}} gutterBottom>
+						{specificItem.description}
+					</Typography>
+					<Typography  color="textSecondary" style={{fontSize: "10px",lineHeight:"100%"}}>
+						STATUS: {specificItem.itemstatus}	<br />
+						PRIORITY: {specificItem.priority}
+					</Typography>
+				</CardContent>
+			</Card >
+		</Grid>
 		)
 	}
 
 	function ColumnDisplay({itemsColumn}) {
 		const currentColumn = Array.from(itemsColumn);
 		return (
-			<div className="SubColumn">
+			<Grid container direction="row" className="" xs="12" spacing="2">
 			{currentColumn.map( item => (
 				<Item specificItem={item}/>
 			))}
-			</div>
+			</Grid>
 		);
 	};
 
 
 	return (
-	<div className="App">
+	<Paper className="App">
 		<Toolbar>Task Feed Visualizer - 10 August 2021</Toolbar>
-		<div>
+		<Grid container direction="row" >
+			<Grid item   > 
+				<Card className="CategoryBox">NOTSTARTED</Card>
+				<ColumnDisplay itemsColumn={notStartedColumn}/>
+			</Grid>
+			<Grid item  >
+				<Grid item spacing="2"><Card className="CategoryBox" style={{backgroundColor: "yellow"}}>ONHOLD</Card></Grid>
+				<ColumnDisplay itemsColumn={onHoldColumn}/>
+			</Grid>
+			<Grid >
+				<Card className="CategoryBox">ONGOING</Card>
+				<ColumnDisplay itemsColumn={onGoingColumn}/>
+			</Grid>
+			<Grid item  >
+				<Card className="CategoryBox" style={{backgroundColor: "gray"}}>DONE</Card>
+				<ColumnDisplay itemsColumn={doneColumn}/>
+			</Grid>
+			<Grid item  >
+				<Paper className="CategoryBox" style={{backgroundColor: "skyblue"}}>MOVED</Paper>
+				<ColumnDisplay itemsColumn={movedColumn}/>
+			</Grid>
+		</Grid>
+		{/* <div>
 			<div className="FirstRow">
 
 				<div className="Column">
@@ -96,8 +121,8 @@ function App() {
 				</div>
 
 			</div>
-		</div>
-	</div> 
+		</div> */}
+	</Paper> 
   );
 }
 
