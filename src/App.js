@@ -3,7 +3,15 @@ import React, {useState, useEffect} from 'react';
 import {CardContent, Card, Typography, CardActions, Button, Toolbar, Paper } from '@material-ui/core';
 import Grid from "@material-ui/core/Grid";
 
-import {cfu_filterStatus} from './Sorter'
+import BreakpointMasonry from './MasonryWrapper'
+
+import {
+	cfu_filterStatus,
+	cfu_priorityFromIndex,
+	cfu_statusFromIndex,
+	cfu_testIfPriorityIsValid,
+	cfu_testIfStatusIsValid,
+} from './Sorter'
 
 function App() {
 	const feedFile = require('./Task Feed - 10 August 2021.json');
@@ -17,27 +25,49 @@ function App() {
 	useEffect(() => cfu_getItems(feedFile), []);	
 
 	const cfu_getItems = (itemfile) => {
-		cfu_setNotStarted(cfu_filterStatus("NOTSTARTED",itemfile));
-		cfu_setOnHold(cfu_filterStatus("ONHOLD",itemfile));
-		cfu_setOnGoing(cfu_filterStatus("ONGOING",itemfile));
-		cfu_setDone(cfu_filterStatus("DONE",itemfile));
-		cfu_setMoved(cfu_filterStatus("MOVED",itemfile));
+		cfu_setNotStarted(cfu_filterStatus(1,itemfile,true,true));
+		cfu_setOnHold(cfu_filterStatus(2,itemfile));
+		cfu_setOnGoing(cfu_filterStatus(3,itemfile));
+		cfu_setDone(cfu_filterStatus(4,itemfile));
+		cfu_setMoved(cfu_filterStatus(5,itemfile));
 	}
+
+
 
 	const Item = ({specificItem}) => {
 		let color;
-		if (specificItem.itemstatus === "DONE"){
-			color = "#D9D9D9";
-		}
-		else if (specificItem.itemstatus === "ONHOLD"){
+
+		// ONHOLD and MOVED
+		if (specificItem.itemstatus === 2){
 			color = "yellow";
 		}
-		else if (specificItem.itemstatus === "MOVED"){
+		else if (specificItem.itemstatus === 5){
 			color = "#00B0F0";
 		}
+
+		// DONE, high priorities, and CANCELED
+		if (specificItem.itemstatus === 4){
+			color = "#D9D9D9";
+		} 
+		else if (specificItem.itemstatus === 0)
+		{
+			color = "#595959";
+		}
+		else if (specificItem.priority < 3)
+		{
+			color = "red";
+		}
+		
+
+		// invalid items
+		if ((cfu_testIfPriorityIsValid(specificItem)===false)||(cfu_testIfStatusIsValid(specificItem)===false))
+		{
+			color = "green";
+		}
+
 		return (
-		<Grid item xs="auto" >
-			<Card className="Item" style={{backgroundColor: color ? color : "white"}}>
+		<Grid item xs="auto">
+			<Card square className="Item" style={{backgroundColor: color ? color : "white"}}>
 				<CardContent>
 					<Typography color="textSecondary" variant="caption" gutterBottom style={{fontSize: "7px"}}>
 						FROM: {specificItem.from}
@@ -46,8 +76,8 @@ function App() {
 						{specificItem.description}
 					</Typography>
 					<Typography  color="textSecondary" style={{fontSize: "10px",lineHeight:"100%"}}>
-						STATUS: {specificItem.itemstatus}	<br />
-						PRIORITY: {specificItem.priority}
+						STATUS: {cfu_statusFromIndex(specificItem.itemstatus)}	<br />
+						PRIORITY: {cfu_priorityFromIndex(specificItem.priority)}
 					</Typography>
 				</CardContent>
 			</Card >
@@ -58,11 +88,12 @@ function App() {
 	function ColumnDisplay({itemsColumn}) {
 		const currentColumn = Array.from(itemsColumn);
 		return (
-			<Grid container direction="row" className="" xs="12" spacing="2">
+			<BreakpointMasonry>
+			{/*<Grid container spacing="1" alignItems="flex-start">*/}
 			{currentColumn.map( item => (
 				<Item specificItem={item}/>
 			))}
-			</Grid>
+			</BreakpointMasonry>
 		);
 	};
 
@@ -71,25 +102,35 @@ function App() {
 	<Paper className="App">
 		<Toolbar>Task Feed Visualizer - 10 August 2021</Toolbar>
 		<Grid container direction="row" >
-			<Grid item   > 
-				<Card className="CategoryBox">NOTSTARTED</Card>
-				<ColumnDisplay itemsColumn={notStartedColumn}/>
+			<Grid item  className="CategoryPaper"> 
+				<Paper>
+					<Paper square className="CategoryBox" elevation="0">NOTSTARTED</Paper>
+					<ColumnDisplay itemsColumn={notStartedColumn}/>
+				</Paper>
 			</Grid>
-			<Grid item  >
-				<Grid item spacing="2"><Card className="CategoryBox" style={{backgroundColor: "yellow"}}>ONHOLD</Card></Grid>
-				<ColumnDisplay itemsColumn={onHoldColumn}/>
+			<Grid item className="CategoryPaper">
+				<Paper>
+					<Paper square className="CategoryBox" style={{backgroundColor: "yellow"}} elevation="0">ONHOLD</Paper>
+					<ColumnDisplay itemsColumn={onHoldColumn}/>
+				</Paper>
 			</Grid>
-			<Grid >
-				<Card className="CategoryBox">ONGOING</Card>
-				<ColumnDisplay itemsColumn={onGoingColumn}/>
+			<Grid item className="CategoryPaper">
+				<Paper>
+					<Paper square className="CategoryBox" elevation="0">ONGOING</Paper>
+					<ColumnDisplay itemsColumn={onGoingColumn}/>
+				</Paper>
 			</Grid>
-			<Grid item  >
-				<Card className="CategoryBox" style={{backgroundColor: "gray"}}>DONE</Card>
-				<ColumnDisplay itemsColumn={doneColumn}/>
+			<Grid item className="CategoryPaper">
+				<Paper>
+					<Paper square elevation="0" className="CategoryBox" style={{backgroundColor: "gray"}}>DONE</Paper>
+					<ColumnDisplay itemsColumn={doneColumn}/>
+				</Paper>
 			</Grid>
-			<Grid item  >
-				<Paper className="CategoryBox" style={{backgroundColor: "skyblue"}}>MOVED</Paper>
-				<ColumnDisplay itemsColumn={movedColumn}/>
+			<Grid item className="CategoryPaper">
+				<Paper>
+					<Paper square className="CategoryBox" style={{backgroundColor: "skyblue"}}>MOVED</Paper>
+					<ColumnDisplay itemsColumn={movedColumn}/>
+				</Paper>
 			</Grid>
 		</Grid>
 		{/* <div>

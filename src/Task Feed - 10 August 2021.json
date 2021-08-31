@@ -4,32 +4,40 @@
 		"from":"[ME]",
 		"project":"Test Project",
 		"description":"Test task item for a practice activity",
-		"itemstatus":"ONGOING",
-		"priority":"NORMAL/MEDIUM"
+		"itemstatus":0,
+		"priority":0
 	},
 	{
 		"id":2,
 		"from":"You",
 		"project":"Test Project Dos",
 		"description":"Second test item",
-		"itemstatus":"ONGOING",
-		"priority":"HIGH"
+		"itemstatus":4,
+		"priority":0
 	},
 	{
 		"id":3,
 		"from":"You",
 		"project":"Test Project Dos",
-		"description":"Second test item",
+		"description":"Third test item",
 		"itemstatus":"ONGOING",
-		"priority":"HIGH"
+		"priority":2
 	},
 	{
 		"id":4,
 		"from":"You",
 		"project":"Test Project Dos",
-		"description":"Second test item",
-		"itemstatus":"DONE",
-		"priority":"HIGH"
+		"description":"Fourth test item",
+		"itemstatus":"ONGOING",
+		"priority":0
+	},
+	{
+		"id":5,
+		"from":"Them",
+		"project":"Test Project Tres",
+		"description":"Fifth test item",
+		"itemstatus":"ONGOING",
+		"priority":6
 	}
 
 ]
